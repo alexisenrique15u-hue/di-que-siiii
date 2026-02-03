@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>💘 San Valentín 💘</title>
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffd6e8, #ffeef5);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      max-width: 360px;
+      position: relative;
+      z-index: 2;
+      animation: pop 0.8s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      color: #ff4d88;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 18px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yes {
+      background-color: #ff4d88;
+      color: white;
+    }
+
+    #no {
+      background-color: #ccc;
+      position: relative;
+    }
+
+    /* 🐱 Gatitos */
+    .cats-around {
+      position: absolute;
+      inset: -180px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .cat {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 18px;
+      position: absolute;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+      animation: floatCat 3s ease-in-out infinite;
+    }
+
+    .c1 { top: -20px; left: 50%; transform: translateX(-50%); }
+    .c2 { top: 50%; right: -20px; transform: translateY(-50%); }
+    .c3 { bottom: -20px; left: 50%; transform: translateX(-50%); }
+    .c4 { top: 50%; left: -20px; transform: translateY(-50%); }
+
+    @keyframes floatCat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* 💖 Corazones */
+    .heart {
+      position: fixed;
+      font-size: 24px;
+      animation: float 4s linear forwards;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-300px); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🎶 NUEVA CANCIÓN -->
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_6b9dbe3f2d.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container" id="content">
+    <h1>¿Quieres ser mi San Valentín? 💘</h1>
+
+    <div class="cats-around">
+      <img class="cat c1" src="https://cataas.com/cat/cute?1">
+      <img class="cat c2" src="https://cataas.com/cat/cute?2">
+      <img class="cat c3" src="https://cataas.com/cat/cute?3">
+      <img class="cat c4" src="https://cataas.com/cat/cute?4">
+    </div>
+
+    <button id="yes" onclick="yesClick()">Sí 💖</button>
+    <button id="no" onclick="noClick()">No 😢</button>
+  </div>
+
+  <script>
+    let noCount = 0;
+
+    function yesClick() {
+      document.getElementById("music").play();
+
+      document.getElementById("content").innerHTML = `
+        <h1>💖 Sabía que dirías que sí 💖</h1>
+        <p>Eres lo mejor que me pasó 😻</p>
+      `;
+
+      const interval = setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerText = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 4000);
+      }, 150);
+
+      setTimeout(() => clearInterval(interval), 4000);
+    }
+
+    function noClick() {
+      noCount++;
+      const noBtn = document.getElementById("no");
+
+      if (noCount === 1) {
+        noBtn.innerText = "¿Segura? 🥺";
+      } else if (noCount === 2) {
+        noBtn.innerText = "Mira los gatitos 😭";
+      } else {
+        noBtn.style.position = "absolute";
+        noBtn.style.left = Math.random() * 80 + "vw";
+        noBtn.style.top = Math.random() * 80 + "vh";
+      }
+    }
+  </script>
+
+</body>
+</html>
+
